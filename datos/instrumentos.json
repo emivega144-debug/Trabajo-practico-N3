@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "nombre": "Guitarra criolla",
+    "familia": "Cuerda",
+    "origen": "España",
+    "descripcion": "Instrumento clásico usado en folklore y tango.",
+    "disponible": true
+  },
+  {
+    "id": 2,
+    "nombre": "Bombo legüero",
+    "familia": "Percusión",
+    "origen": "Argentina",
+    "descripcion": "Tambor tradicional del noroeste argentino.",
+    "disponible": true
+  },
+  {
+  "id": 3,
+  "nombre": "Quena",
+  "familia": "Viento",
+  "origen": "Andes",
+  "descripcion": "Flauta tradicional andina hecha de caña o madera.",
+  "disponible": true
+},
+{
+  "id": 4,
+  "nombre": "Violín",
+  "familia": "Cuerda",
+  "origen": "Europa",
+  "descripcion": "Instrumento de cuerda frotada usado en música clásica y popular.",
+  "disponible": false
+},
+{
+  "id": 5,
+  "nombre": "Marimba",
+  "familia": "Percusión",
+  "origen": "Centroamérica",
+  "descripcion": "Instrumento de láminas de madera que se toca con baquetas.",
+  "disponible": true
+}
+]
