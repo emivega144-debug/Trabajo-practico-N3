@@ -1,0 +1,110 @@
+# Trabajo Práctico 03
+
+## Descripción
+
+Este proyecto es una API desarrollada con Node.js y Express que administra temporalmente un catálogo de instrumentos musicales en memoria. Permite consultar una lista completa de instrumentos, filtrarlos por familia, buscar uno en específico por su ID y agregar nuevos elementos mediante solicitudes HTTP.
+
+## Instalación
+
+Para preparar el entorno de trabajo y descargar las dependencias necesarias (como Express), hay que clonar el repositorio y ejecutar en la terminal:
+npm install
+
+## Ejecución
+
+Una vez instaladas las dependencias, podés iniciar el servidor con el siguiente comando:
+npm start
+
+El servidor quedará escuchando en el puerto configurado (generalmente http://localhost:3000)
+
+## Endpoints
+
+- GET / Devuelve un mensaje de bienvenida indicando que la API está disponible.
+
+- GET /api/instrumentos Devuelve la lista completa de instrumentos. Acepta un parámetro de consulta (?familia=...) para filtrar.
+
+- GET /api/instrumentos/:id Devuelve el detalle de un instrumento específico buscando por su ID.
+
+- POST /api/instrumentos Agrega un nuevo instrumento al catálogo en memoria.
+
+## Ejemplos de solicitudes
+
+Ejemplos de solicitudes:
+
+- Listar todos: GET http://localhost:3000/api/instrumentos
+
+- Filtrar por familia (Query): GET http://localhost:3000/api/instrumentos?familia=cuerda
+
+- Buscar por ID (Parámetro de ruta): GET http://localhost:3000/api/instrumentos/1
+
+- Crear un instrumento (POST):
+
+URL: http://localhost:3000/api/instrumentos
+Headers: Content-Type: application/json
+Body (Cuerpo JSON):
+
+{
+
+  "nombre": "Guitarra Criolla",
+
+  "familia": "Cuerda",
+
+  "origen": "España",
+
+  "descripcion": "Guitarra clásica de seis cuerdas.",
+
+  "disponible": true
+
+}
+
+## Códigos de estado
+
+La API responde con los siguientes códigos HTTP según el resultado de cada operación:
+
+200 OK: La solicitud se procesó con éxito. Se usa para las consultas generales (GET /), los listados, los filtros (incluso si devuelven un arreglo vacío porque no hubo coincidencias) y cuando se encuentra un instrumento por su ID.
+
+201 Created: El recurso (instrumento) se creó y se guardó en memoria de forma exitosa tras un POST.
+
+400 Bad Request: Falta alguno de los campos obligatorios en el cuerpo de la solicitud POST.
+
+404 Not Found: El recurso solicitado (por ejemplo, un ID de instrumento que no existe) no fue encontrado.
+
+
+
+## Persistencia de los datos
+
+Los datos iniciales del catálogo se leen desde un archivo JSON al arrancar el servidor y se guardan temporalmente en un arreglo en memoria RAM
+
+Cuando agregás un nuevo instrumento mediante una solicitud POST, este se añade únicamente a ese arreglo en memoria. Como la aplicación no modifica ni sobreescribe, el archivo físico en el disco, al reiniciar el servidor, la memoria se borra por completo y el sistema vuelve a leer el archivo JSON original. Debido a esto, cualquier registro creado durante la ejecución desaparecerá al reiniciar.
+
+
+## Preguntas
+
+
+1. npm install y npm start: npm install descarga e instala las dependencias necesarias para el proyecto. npm start ejecuta el script configurado para poner en marcha el servidor.
+
+2. Cómo detener el servidor: Hacé clic en la terminal donde está corriendo el servidor y presioná las teclas Ctrl + C.
+
+3. Método y URL de cada endpoint
+  - GET /: Devuelve un mensaje de bienvenida indicando que la API está disponible.
+  - GET /api/instrumentos: Devuelve la lista completa de instrumentos o permite filtrarlos.
+  - GET /api/instrumentos/:id`: Devuelve el detalle de un instrumento específico según su identificador.
+  - POST /api/instrumentos: Permite agregar un nuevo instrumento al catálogo.
+
+4. Cuerpo necesario para POST: Requiere enviar el encabezado Content-Type: application/json y un cuerpo JSON con los campos: nombre, familia, origen, descripcion y disponible`.
+
+5. Casos 200, 201, 400 y 404:
+  - 200 OK: Éxito general en la solicitud (bienvenida, listados, filtros y búsqueda por ID).
+  - 201 Created: El recurso fue creado de forma exitosa tras un POST.
+  - 400 Bad Request: Faltan datos obligatorios en la solicitud.
+  - 404 Not Found: El recurso o ID buscado no existe.
+
+
+6. Diferencia entre parámetro de ruta y consulta:
+  - Los parámetros de ruta (ej. /api/instrumentos/:id) identifican y seleccionan un recurso concreto.
+  - Las consultas o queries (ej. /api/instrumentos?familia=...) se usan de forma opcional para filtrar o modificar la representación de una colección.
+
+- Función de express.json():
+  Es un middleware indispensable que permite a la aplicación interpretar los cuerpos de las solicitudes enviados en formato JSON para leerlos a través de req.body.
+
+- Por qué las creaciones desaparecen al reiniciar:
+  Porque los nuevos registros se guardan únicamente de manera temporal en un arreglo en la memoria RAM. Como la aplicación no sobreescribe el archivo JSON original en el disco, al reiniciar el servidor la memoria se borra y se vuelve a leer el archivo inicial.
