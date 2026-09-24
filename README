@@ -1,4 +1,4 @@
-# Trabajo práctico 03
+# Trabajo Práctico 03
 
 ## Descripción
 
@@ -74,7 +74,7 @@ La API responde con los siguientes códigos HTTP según el resultado de cada ope
 
 Los datos iniciales del catálogo se leen desde un archivo JSON al arrancar el servidor y se guardan temporalmente en un arreglo en memoria RAM
 
-Cuando agregás un nuevo instrumento mediante una solicitud `POST`, este se añade únicamente a ese arreglo en memoria. Como la aplicación no modifica ni sobreescribe, el archivo físico en el disco, al reiniciar el servidor, la memoria se borra por completo y el sistema vuelve a leer el archivo JSON original. Debido a esto, cualquier registro creado durante la ejecución desaparecerá al reiniciar.
+Cuando agregás un nuevo instrumento mediante una solicitud POST, este se añade únicamente a ese arreglo en memoria. Como la aplicación no modifica ni sobreescribe, el archivo físico en el disco, al reiniciar el servidor, la memoria se borra por completo y el sistema vuelve a leer el archivo JSON original. Debido a esto, cualquier registro creado durante la ejecución desaparecerá al reiniciar.
 
 
 ## Preguntas
@@ -85,23 +85,23 @@ Cuando agregás un nuevo instrumento mediante una solicitud `POST`, este se aña
 2. Cómo detener el servidor: Hacé clic en la terminal donde está corriendo el servidor y presioná las teclas Ctrl + C.
 
 3. Método y URL de cada endpoint
-  - GET `/`: Devuelve un mensaje de bienvenida indicando que la API está disponible.
-  - GET `/api/instrumentos`: Devuelve la lista completa de instrumentos o permite filtrarlos.
-  - GET `/api/instrumentos/:id`: Devuelve el detalle de un instrumento específico según su identificador.
-  - POST `/api/instrumentos`: Permite agregar un nuevo instrumento al catálogo.
+  - GET /: Devuelve un mensaje de bienvenida indicando que la API está disponible.
+  - GET /api/instrumentos: Devuelve la lista completa de instrumentos o permite filtrarlos.
+  - GET /api/instrumentos/:id`: Devuelve el detalle de un instrumento específico según su identificador.
+  - POST /api/instrumentos: Permite agregar un nuevo instrumento al catálogo.
 
 4. Cuerpo necesario para POST: Requiere enviar el encabezado Content-Type: application/json y un cuerpo JSON con los campos: nombre, familia, origen, descripcion y disponible`.
 
 5. Casos 200, 201, 400 y 404:
   - 200 OK: Éxito general en la solicitud (bienvenida, listados, filtros y búsqueda por ID).
-  - 201 Created: El recurso fue creado de forma exitosa tras un `POST`.
+  - 201 Created: El recurso fue creado de forma exitosa tras un POST.
   - 400 Bad Request: Faltan datos obligatorios en la solicitud.
   - 404 Not Found: El recurso o ID buscado no existe.
 
 
 6. Diferencia entre parámetro de ruta y consulta:
-  - Los parámetros de ruta (ej. `/api/instrumentos/:id`) identifican y seleccionan un recurso concreto.
-  - Las consultas o queries (ej. `/api/instrumentos?familia=...`) se usan de forma opcional para filtrar o modificar la representación de una colección.
+  - Los parámetros de ruta (ej. /api/instrumentos/:id) identifican y seleccionan un recurso concreto.
+  - Las consultas o queries (ej. /api/instrumentos?familia=...) se usan de forma opcional para filtrar o modificar la representación de una colección.
 
 * Función de express.json():
   Es un middleware indispensable que permite a la aplicación interpretar los cuerpos de las solicitudes enviados en formato JSON para leerlos a través de req.body.
